@@ -1,0 +1,44 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "someturrets:bedrock_reinforced_steel_block"
+    ]
+  },
+  "criteria": {
+    "OBSIDIAN": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:obsidian"
+            ]
+          },
+          {
+            "items": [
+              "minecraft:glass"
+            ]
+          },
+          {
+            "items": [
+              "minecraft:diamond_block"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "someturrets:bedrock_reinforced_steel_block"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "OBSIDIAN",
+      "has_the_recipe"
+    ]
+  ]
+}
