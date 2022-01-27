@@ -2,13 +2,13 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "bedrock_reinforced_steel_block.png",
+      "name": "bedrock_steel_stabilized_network_cable.png",
       "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "someturrets:bedrock_reinforced_steel_block"
+          "name": "someturrets:bedrock_steel_stabilized_network_cable"
         }
       ]
     }

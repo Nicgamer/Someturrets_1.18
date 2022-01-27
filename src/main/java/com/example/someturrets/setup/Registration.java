@@ -1,15 +1,10 @@
 package com.example.someturrets.setup;
 
-import com.example.someturrets.Someturrets;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -34,10 +29,13 @@ public class Registration {
     public static final BlockBehaviour.Properties BLOCK_PROPERTIES = BlockBehaviour.Properties.of(Material.STONE).strength(2f);
     public static final Item.Properties ITEM_PROPERTIES = new Item.Properties().tab(ModSetup.ITEM_GROUP);
 
-    public static final RegistryObject<Block> BEDROCK_REINFORCED_STEEL_BLOCK = BLOCKS.register( "Bedrock Reinforced Steel Block", () -> new Block(BLOCK_PROPERTIES));
+    public static final RegistryObject<Block> BEDROCK_REINFORCED_STEEL_BLOCK = BLOCKS.register( "bedrock_reinforced_steel_block", () -> new Block(BLOCK_PROPERTIES));
     public static final RegistryObject<Item> BEDROCK_REINFORCED_STEEL_BLOCK_ITEM = fromBlock(BEDROCK_REINFORCED_STEEL_BLOCK);
+    public static final RegistryObject<Block> BEDROCK_STEEL_STABILIZED_NETWORK_CABLE = BLOCKS.register( "bedrock_steel_stabilized_network_cable", () -> new Block(BLOCK_PROPERTIES));
+    public static final RegistryObject<Item> BEDROCK_STEEL_STABILIZED_NETWORK_CABLE_ITEM = fromBlock(BEDROCK_STEEL_STABILIZED_NETWORK_CABLE);
 
-    public static final RegistryObject<Item> DARK_STEEL_INGOT = ITEMS.register( "dark_steel-ingot", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> DARK_STEEL_INGOT = ITEMS.register( "dark_steel_ingot", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> QUANTUM_ENERGY_CELL = ITEMS.register( "quantum_energy_cell", () -> new Item(ITEM_PROPERTIES));
 
 
     public static <B extends Block> RegistryObject<Item> fromBlock(RegistryObject<B> block) {

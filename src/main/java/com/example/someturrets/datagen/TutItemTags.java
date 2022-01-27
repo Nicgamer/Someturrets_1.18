@@ -22,5 +22,5 @@ public class TutItemTags extends ItemTagsProvider {
     }
 
     @Override
-    public String getName() {return "Somestuff Tags"; }
+    public String getName() {return "Someturrets Tags"; }
 }

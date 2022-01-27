@@ -14,5 +14,6 @@ public class TutBlockStates extends BlockStateProvider {
     protected void registerStatesAndModels() {
 
         simpleBlock(Registration.BEDROCK_REINFORCED_STEEL_BLOCK.get());
+        simpleBlock(Registration.BEDROCK_STEEL_STABILIZED_NETWORK_CABLE.get());
     }
 }

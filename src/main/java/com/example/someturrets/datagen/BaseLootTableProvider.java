@@ -95,7 +95,6 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
 
     @Override
     public void run(HashCache cache) {
-
         addTables();
 
         Map<ResourceLocation, LootTable> tables = new HashMap<>();
@@ -121,7 +120,7 @@ public abstract class BaseLootTableProvider extends LootTableProvider {
 
     @Override
     public String getName() {
-        return "Somestuff LootTables";
+        return "Someturrets LootTables";
     }
 }
 

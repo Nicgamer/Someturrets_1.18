@@ -22,5 +22,5 @@ public class TutBlockTags extends BlockTagsProvider {
     }
 
     @Override
-    public String getName() {return "Somestuff Tags"; }
+    public String getName() {return "Someturrets Tags"; }
 }

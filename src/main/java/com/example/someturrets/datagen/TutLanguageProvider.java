@@ -13,9 +13,11 @@ public class TutLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        add("itemGroup." + TAB_NAME, "Somestuff");
+        add("itemGroup." + TAB_NAME, "Someturrets");
 
         add(Registration.BEDROCK_REINFORCED_STEEL_BLOCK.get(), "Bedrock Reinforced Steel Block");
         add(Registration.DARK_STEEL_INGOT.get(), "Dark Steel Ingot");
+        add(Registration.QUANTUM_ENERGY_CELL.get(), "Quantum Energy Cell");
+        add(Registration.BEDROCK_STEEL_STABILIZED_NETWORK_CABLE.get(), "Bedrock Steel Stabilized Network Cable");
     }
 }
