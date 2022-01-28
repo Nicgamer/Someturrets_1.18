@@ -24,6 +24,15 @@ public class TutItemModels extends ItemModelProvider {
         singleTexture(Registration.QUANTUM_ENERGY_CELL.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", modLoc("item/quantum_energy_cell"));
+        singleTexture(Registration.MASTER_SECURITY_CARD.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", modLoc("item/master_security_card"));
+        singleTexture(Registration.SECURITY_CARD.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", modLoc("item/security_card"));
+        singleTexture(Registration.SECURITY_CARD_MODIFICATION_PIECE.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", modLoc("item/security_card_modification_piece"));
     }
 }
 

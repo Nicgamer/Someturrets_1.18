@@ -1,0 +1,39 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "someturrets:master_security_card"
+    ]
+  },
+  "criteria": {
+    "SECURITY_CARD": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "someturrets:security_card"
+            ]
+          },
+          {
+            "items": [
+              "someturrets:security_card_modification_piece"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "someturrets:master_security_card"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "SECURITY_CARD",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -19,5 +19,9 @@ public class TutLanguageProvider extends LanguageProvider {
         add(Registration.DARK_STEEL_INGOT.get(), "Dark Steel Ingot");
         add(Registration.QUANTUM_ENERGY_CELL.get(), "Quantum Energy Cell");
         add(Registration.BEDROCK_STEEL_STABILIZED_NETWORK_CABLE.get(), "Bedrock Steel Stabilized Network Cable");
+        add(Registration.MASTER_SECURITY_CARD.get(), "Master Security Card");
+        add(Registration.SECURITY_CARD.get(), "Security Card");
+        add(Registration.SECURITY_CARD_MODIFICATION_PIECE.get(), "Security Card Modification Piece");
+
     }
 }

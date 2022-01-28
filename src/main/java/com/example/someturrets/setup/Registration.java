@@ -36,6 +36,10 @@ public class Registration {
 
     public static final RegistryObject<Item> DARK_STEEL_INGOT = ITEMS.register( "dark_steel_ingot", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> QUANTUM_ENERGY_CELL = ITEMS.register( "quantum_energy_cell", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> SECURITY_CARD = ITEMS.register( "security_card", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> MASTER_SECURITY_CARD = ITEMS.register( "master_security_card", () -> new Item(ITEM_PROPERTIES));
+    public static final RegistryObject<Item> SECURITY_CARD_MODIFICATION_PIECE = ITEMS.register( "security_card_modification_piece", () -> new Item(ITEM_PROPERTIES));
+
 
 
     public static <B extends Block> RegistryObject<Item> fromBlock(RegistryObject<B> block) {

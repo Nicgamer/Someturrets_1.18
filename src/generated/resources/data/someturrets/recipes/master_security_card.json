@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " m ",
+    "msm",
+    " m "
+  ],
+  "key": {
+    "m": {
+      "item": "someturrets:security_card_modification_piece"
+    },
+    "s": {
+      "item": "someturrets:security_card"
+    }
+  },
+  "result": {
+    "item": "someturrets:master_security_card"
+  }
+}
