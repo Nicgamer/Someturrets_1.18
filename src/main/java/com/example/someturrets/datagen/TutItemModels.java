@@ -17,6 +17,8 @@ public class TutItemModels extends ItemModelProvider {
         withExistingParent(Registration.BEDROCK_REINFORCED_STEEL_BLOCK_ITEM.get().getRegistryName().getPath(), modLoc("block/bedrock_reinforced_steel_block"));
         withExistingParent(Registration.BEDROCK_STEEL_STABILIZED_NETWORK_CABLE_ITEM.get().getRegistryName().getPath(), modLoc("block/bedrock_steel_stabilized_network_cable"));
 
+        withExistingParent(Registration.POWERGEN_ITEM.get().getRegistryName().getPath(), modLoc("block/powergen/main"));
+
 
         singleTexture(Registration.DARK_STEEL_INGOT.get().getRegistryName().getPath(),
         mcLoc("item/generated"),

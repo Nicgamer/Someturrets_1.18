@@ -20,16 +20,6 @@ public class TutRecipes extends RecipeProvider {
 
     @Override
     protected void buildCraftingRecipes(@Nonnull Consumer<FinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shaped(BEDROCK_REINFORCED_STEEL_BLOCK.get())
-                .pattern("ogo")
-                .pattern("gdg")
-                .pattern("ogo")
-                .define('o', Items.OBSIDIAN)
-                .define('g', Items.GLASS)
-                .define('d', Items.DIAMOND_BLOCK)
-                .unlockedBy("OBSIDIAN", InventoryChangeTrigger.TriggerInstance.hasItems(Items.OBSIDIAN, Items.GLASS, Items.DIAMOND_BLOCK))
-                .save(consumer);
-
         ShapedRecipeBuilder.shaped(Registration.MASTER_SECURITY_CARD.get())
                 .pattern(" m ")
                 .pattern("msm")

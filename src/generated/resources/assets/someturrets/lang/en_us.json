@@ -1,10 +1,13 @@
 {
   "block.someturrets.bedrock_reinforced_steel_block": "Bedrock Reinforced Steel Block",
   "block.someturrets.bedrock_steel_stabilized_network_cable": "Bedrock Steel Stabilized Network Cable",
+  "block.someturrets.powergen": "Energy Absorption Unit",
   "item.someturrets.dark_steel_ingot": "Dark Steel Ingot",
   "item.someturrets.master_security_card": "Master Security Card",
   "item.someturrets.quantum_energy_cell": "Quantum Energy Cell",
   "item.someturrets.security_card": "Security Card",
   "item.someturrets.security_card_modification_piece": "Security Card Modification Piece",
-  "itemGroup.someturrets": "Someturrets"
+  "itemGroup.someturrets": "Someturrets",
+  "message.generator": "Power generator generating %s per tick!",
+  "screen.someturrets.powergen": "Power generator"
 }
