@@ -1,7 +1,8 @@
 {
   "block.someturrets.bedrock_reinforced_steel_block": "Bedrock Reinforced Steel Block",
   "block.someturrets.bedrock_steel_stabilized_network_cable": "Bedrock Steel Stabilized Network Cable",
-  "block.someturrets.powergen": "Energy Absorption Unit",
+  "block.someturrets.dead_matter": "Dead Matter",
+  "block.someturrets.powergen": "Power Generator",
   "item.someturrets.dark_steel_ingot": "Dark Steel Ingot",
   "item.someturrets.master_security_card": "Master Security Card",
   "item.someturrets.quantum_energy_cell": "Quantum Energy Cell",

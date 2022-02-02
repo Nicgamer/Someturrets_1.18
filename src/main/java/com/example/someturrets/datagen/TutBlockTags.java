@@ -20,6 +20,8 @@ public class TutBlockTags extends BlockTagsProvider {
                 .add(Registration.BEDROCK_REINFORCED_STEEL_BLOCK.get());
         tag(BlockTags.NEEDS_IRON_TOOL)
                 .add(Registration.BEDROCK_REINFORCED_STEEL_BLOCK.get());
+        tag(BlockTags.MINEABLE_WITH_SHOVEL)
+                .add(Registration.DEAD_MATTER.get());
     }
 
     @Override

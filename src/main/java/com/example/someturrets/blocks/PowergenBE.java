@@ -2,22 +2,24 @@ package com.example.someturrets.blocks;
 
 import com.example.someturrets.setup.Registration;
 import com.example.someturrets.varia.CustomEnergyStorage;
+import com.example.someturrets.varia.EnergyAbsorptionUnitBlacklist;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,13 +31,24 @@ public class PowergenBE extends BlockEntity {
     public static final int POWERGEN_CAPACITY = 200000; //Max capacity
     public static final int POWERGEN_GENERATE = 1000; //Generation per tick
     public static final int POWERGEN_SEND = 3000; // Power to send out per tick
+    public static final int INPUT_SLOTS = 6;
+    public static final int OUTPUT_SLOTS = 1;
+
+    private boolean generating = false;
+    private BlockState generatingBlock;
+    private boolean actuallyGenerating = false;
+
+    private int generatingCounter = 0;
 
     //Never create lazy optional in getCapability. Always place them in the tile entity:
-    private final ItemStackHandler itemHandler = createHandler();
-    private final LazyOptional<IItemHandler> handler = LazyOptional.of(() -> itemHandler);
+    private final ItemStackHandler inputItems = createInputItemHandler();
+    private final LazyOptional<IItemHandler> inputItemHandler = LazyOptional.of(() -> inputItems);
+    private final ItemStackHandler outputItems = createOutputItemHandler();
+    private final LazyOptional<IItemHandler> outputItemHandler = LazyOptional.of(() -> outputItems);
 
     private final CustomEnergyStorage energyStorage = createEnergy();
     private final LazyOptional<IEnergyStorage> energy = LazyOptional.of(() -> energyStorage);
+
 
     private int counter;
 
@@ -46,25 +59,14 @@ public class PowergenBE extends BlockEntity {
     @Override
     public void setRemoved() {
         super.setRemoved();
-        handler.invalidate();
+        inputItemHandler.invalidate();
+        outputItemHandler.invalidate();
         energy.invalidate();
     }
 
     public void tickServer() {
         if (counter > 0) {
-            energyStorage.addEnergy(POWERGEN_GENERATE);
-            counter--;
             setChanged();
-        }
-
-        if (counter <= 0) {
-            ItemStack stack = itemHandler.getStackInSlot(0);
-            int burnTime = ForgeHooks.getBurnTime(stack, RecipeType.SMELTING);
-            if (burnTime > 0) {
-                itemHandler.extractItem(0, 1, false);
-                counter = burnTime;
-                setChanged();
-            }
         }
 
         BlockState blockState = level.getBlockState(worldPosition);
@@ -74,6 +76,16 @@ public class PowergenBE extends BlockEntity {
         }
 
         sendOutPower();
+
+        boolean areWeGenerating = false;
+        if (generating) {
+            areWeGenerating = generateDeadMatter();
+        }
+        if (areWeGenerating != actuallyGenerating) {
+            actuallyGenerating = areWeGenerating;
+            setChanged();
+            level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+        }
     }
 
     private void sendOutPower() {
@@ -83,16 +95,16 @@ public class PowergenBE extends BlockEntity {
                 BlockEntity be = level.getBlockEntity(worldPosition.relative(direction));
                 if (be != null) {
                     boolean doContinue = be.getCapability(CapabilityEnergy.ENERGY, direction.getOpposite()).map(handler -> {
-                        if (handler.canReceive()) {
-                            int received = handler.receiveEnergy(Math.min(capacity.get(), POWERGEN_SEND), false);
-                            capacity.addAndGet(-received);
-                            energyStorage.consumeEnergy(received);
-                            setChanged();
-                            return capacity.get() > 0;
-                        } else {
-                            return true;
-                        }
-                    }
+                                if (handler.canReceive()) {
+                                    int received = handler.receiveEnergy(Math.min(capacity.get(), POWERGEN_SEND), false);
+                                    capacity.addAndGet(-received);
+                                    energyStorage.consumeEnergy(received);
+                                    setChanged();
+                                    return capacity.get() > 0;
+                                } else {
+                                    return true;
+                                }
+                            }
                     ).orElse(true);
                     if (!doContinue) {
                         return;
@@ -105,7 +117,7 @@ public class PowergenBE extends BlockEntity {
     @Override
     public void load(CompoundTag tag) {
         if (tag.contains("Inventory")) {
-            itemHandler.deserializeNBT(tag.getCompound("Inventory"));
+           inputItems.deserializeNBT(tag.getCompound("Inventory"));
         }
         if (tag.contains("Energy")) {
             energyStorage.deserializeNBT(tag.get("Energy"));
@@ -118,7 +130,7 @@ public class PowergenBE extends BlockEntity {
 
     @Override
     public void saveAdditional(CompoundTag tag) {
-        tag.put("Inventory", itemHandler.serializeNBT());
+        tag.put("Inventory",inputItems.serializeNBT());
         tag.put("Energy", energyStorage.serializeNBT());
 
         CompoundTag infoTag = new CompoundTag();
@@ -138,13 +150,13 @@ public class PowergenBE extends BlockEntity {
 
             @Override
             public boolean isItemValid(int slot, @Nonnull ItemStack stack) {
-                return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) > 0;
+                return EnergyAbsorptionUnitBlacklist.EnergyAbsorptionUnitBlacklist(stack) >= 0;
             }
 
             @Nonnull
             @Override
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                if (ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) <= 0) {
+                if (EnergyAbsorptionUnitBlacklist.EnergyAbsorptionUnitBlacklist(stack) < 0) {
                     return stack;
                 }
                 return super.insertItem(slot, stack, simulate);
@@ -152,10 +164,62 @@ public class PowergenBE extends BlockEntity {
         };
     }
 
+    private boolean generateDeadMatter() {
+        // The player didn't select anything to generate
+        if (generatingBlock == null) {
+            return false;
+        }
+        boolean areWeGenerating = false;
+        for (int i = 0; i < inputItems.getSlots(); i++) {
+            ItemStack item = inputItems.getStackInSlot(i);
+            if (!item.isEmpty()) {
+                energyStorage.addEnergy(POWERGEN_GENERATE);
+                // The API documentation from getStackInSlot says you are not allowed to modify the itemstacks returned
+                // by getStackInSlot. That's why we make a copy here
+                item = item.copy();
+                item.shrink(1);
+                // Put back the item with one less (can be empty)
+                inputItems.setStackInSlot(i, item);
+                generatingCounter++;
+                areWeGenerating = true;
+                setChanged();
+                if (generatingCounter == 1) {
+                    generatingCounter = 0;
+                    // For each of these ores we try to insert it in the output buffer or else throw it on the ground
+                    ItemStack remaining = ItemHandlerHelper.insertItem(outputItems, new ItemStack(generatingBlock.getBlock().asItem()), false);
+                }
+            }
+        }
+        return areWeGenerating;
+    }
+
+
+    @Nonnull
+    private ItemStackHandler createInputItemHandler() {
+        return new ItemStackHandler(INPUT_SLOTS) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+        };
+    }
+
+    @Nonnull
+    private ItemStackHandler createOutputItemHandler() {
+        return new ItemStackHandler(OUTPUT_SLOTS) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
+        };
+    }
+
     private CustomEnergyStorage createEnergy() {
         return new CustomEnergyStorage(POWERGEN_CAPACITY, 0) {
             @Override
-            protected void onEnergyChanged() {setChanged();}
+            protected void onEnergyChanged() {
+                setChanged();
+            }
         };
     }
 
@@ -163,11 +227,15 @@ public class PowergenBE extends BlockEntity {
     @Override
     public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, @Nullable Direction side) {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return handler.cast();
-        }
-        if (cap == CapabilityEnergy.ENERGY) {
+            if (side == Direction.DOWN) {
+                return outputItemHandler.cast();
+            } else {
+                return inputItemHandler.cast();
+            }
+        } else if (cap == CapabilityEnergy.ENERGY) {
             return energy.cast();
+        } else {
+            return super.getCapability(cap, side);
         }
-        return super.getCapability(cap, side);
     }
 }

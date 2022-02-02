@@ -16,6 +16,7 @@ public class TutItemModels extends ItemModelProvider {
     protected void registerModels() {
         withExistingParent(Registration.BEDROCK_REINFORCED_STEEL_BLOCK_ITEM.get().getRegistryName().getPath(), modLoc("block/bedrock_reinforced_steel_block"));
         withExistingParent(Registration.BEDROCK_STEEL_STABILIZED_NETWORK_CABLE_ITEM.get().getRegistryName().getPath(), modLoc("block/bedrock_steel_stabilized_network_cable"));
+        withExistingParent(Registration.DEAD_MATTER_ITEM.get().getRegistryName().getPath(), modLoc("block/dead_matter"));
 
         withExistingParent(Registration.POWERGEN_ITEM.get().getRegistryName().getPath(), modLoc("block/powergen/main"));
 

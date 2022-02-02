@@ -44,12 +44,15 @@ public class Registration {
     public static final RegistryObject<Item> BEDROCK_REINFORCED_STEEL_BLOCK_ITEM = fromBlock(BEDROCK_REINFORCED_STEEL_BLOCK);
     public static final RegistryObject<Block> BEDROCK_STEEL_STABILIZED_NETWORK_CABLE = BLOCKS.register( "bedrock_steel_stabilized_network_cable", () -> new Block(BLOCK_PROPERTIES));
     public static final RegistryObject<Item> BEDROCK_STEEL_STABILIZED_NETWORK_CABLE_ITEM = fromBlock(BEDROCK_STEEL_STABILIZED_NETWORK_CABLE);
+    public static final RegistryObject<Block> DEAD_MATTER = BLOCKS.register( "dead_matter", () -> new Block(BLOCK_PROPERTIES));
+    public static final RegistryObject<Item> DEAD_MATTER_ITEM = fromBlock(DEAD_MATTER);
 
     public static final RegistryObject<PowergenBlock> POWERGEN = BLOCKS.register("powergen", PowergenBlock::new);
     public static final RegistryObject<Item> POWERGEN_ITEM = fromBlock(POWERGEN);
     public static final RegistryObject<BlockEntityType<PowergenBE>> POWERGEN_BE = BLOCK_ENTITIES.register("powergen", () -> BlockEntityType.Builder.of(PowergenBE::new, POWERGEN.get()).build(null));
     public static final RegistryObject<MenuType<PowergenContainer>> POWERGEN_CONTAINER = CONTAINERS.register("powergen",
             () -> IForgeMenuType.create((windowId, inv, data) -> new PowergenContainer(windowId, data.readBlockPos(), inv, inv.player)));
+
 
     public static final RegistryObject<Item> DARK_STEEL_INGOT = ITEMS.register( "dark_steel_ingot", () -> new Item(ITEM_PROPERTIES));
     public static final RegistryObject<Item> QUANTUM_ENERGY_CELL = ITEMS.register( "quantum_energy_cell", () -> new Item(ITEM_PROPERTIES));

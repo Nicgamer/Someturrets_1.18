@@ -13,13 +13,16 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 
 public class TutBlockStates extends BlockStateProvider {
 
-    public TutBlockStates(DataGenerator gen, ExistingFileHelper helper) {super(gen, Someturrets.MODID, helper);}
+    public TutBlockStates(DataGenerator gen, ExistingFileHelper helper) {
+        super(gen, Someturrets.MODID, helper);
+    }
 
     @Override
     protected void registerStatesAndModels() {
         registerPowergen();
         simpleBlock(Registration.BEDROCK_REINFORCED_STEEL_BLOCK.get());
         simpleBlock(Registration.BEDROCK_STEEL_STABILIZED_NETWORK_CABLE.get());
+        simpleBlock(Registration.DEAD_MATTER.get());
     }
 
     private void registerPowergen() {
@@ -27,12 +30,12 @@ public class TutBlockStates extends BlockStateProvider {
         frame.parent(models().getExistingFile(mcLoc("cube")));
 
         floatingCube(frame, 0f, 0f, 0f, 1f, 16f, 1f);
-        floatingCube(frame, 15f, 0f,0f, 16f, 16f, 1f);
+        floatingCube(frame, 15f, 0f, 0f, 16f, 16f, 1f);
         floatingCube(frame, 0f, 0f, 15f, 1f, 16f, 16f);
         floatingCube(frame, 15f, 0f, 15f, 16f, 16f, 16f);
 
         floatingCube(frame, 1f, 0f, 0f, 15f, 1f, 1f);
-        floatingCube(frame, 1f, 15f,0f, 15f, 16f, 1f);
+        floatingCube(frame, 1f, 15f, 0f, 15f, 16f, 1f);
         floatingCube(frame, 1f, 0f, 15f, 15f, 1f, 16f);
         floatingCube(frame, 1f, 15f, 15f, 15f, 16f, 16f);
 
@@ -69,8 +72,8 @@ public class TutBlockStates extends BlockStateProvider {
 
         bld.part().modelFile(frame).addModel();
 
-        BlockModelBuilder[] models = new BlockModelBuilder[] { singleOff, singleOn};
-        for (int i = 0 ; i < 2 ; i++) {
+        BlockModelBuilder[] models = new BlockModelBuilder[]{singleOff, singleOn};
+        for (int i = 0; i < 2; i++) {
             boolean powered = i == 1;
             bld.part().modelFile(models[i]).addModel().condition(BlockStateProperties.POWERED, powered);
             bld.part().modelFile(models[i]).rotationX(180).addModel().condition(BlockStateProperties.POWERED, powered);

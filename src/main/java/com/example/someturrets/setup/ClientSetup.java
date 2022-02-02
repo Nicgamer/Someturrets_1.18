@@ -14,4 +14,5 @@ public class ClientSetup {
             ItemBlockRenderTypes.setRenderLayer(Registration.POWERGEN.get(), RenderType.translucent());
         });
     }
+
 }

@@ -19,7 +19,7 @@ public class TutLanguageProvider extends LanguageProvider {
         add(MESSAGE_POWERGEN, "Power generator generating %s per tick!");
         add(SCREEN_SOMETURRETS_POWERGEN, "Power generator");
 
-        add(Registration.POWERGEN.get(), "Energy Absorption Unit");
+        add(Registration.POWERGEN.get(), "Power Generator");
 
         add(Registration.BEDROCK_REINFORCED_STEEL_BLOCK.get(), "Bedrock Reinforced Steel Block");
         add(Registration.DARK_STEEL_INGOT.get(), "Dark Steel Ingot");
@@ -28,6 +28,6 @@ public class TutLanguageProvider extends LanguageProvider {
         add(Registration.MASTER_SECURITY_CARD.get(), "Master Security Card");
         add(Registration.SECURITY_CARD.get(), "Security Card");
         add(Registration.SECURITY_CARD_MODIFICATION_PIECE.get(), "Security Card Modification Piece");
-
+        add(Registration.DEAD_MATTER.get(), "Dead Matter");
     }
 }
