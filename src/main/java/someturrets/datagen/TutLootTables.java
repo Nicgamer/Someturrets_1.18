@@ -1,6 +1,6 @@
-package com.example.someturrets.datagen;
+package someturrets.datagen;
 
-import com.example.someturrets.setup.Registration;
+import someturrets.setup.Registration;
 import net.minecraft.data.DataGenerator;
 
 public class TutLootTables extends BaseLootTableProvider {

@@ -1,13 +1,13 @@
-package com.example.someturrets.datagen;
+package someturrets.datagen;
 
-import com.example.someturrets.Someturrets;
-import com.example.someturrets.setup.Registration;
+import someturrets.Someturrets;
+import someturrets.setup.Registration;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
-import static com.example.someturrets.blocks.PowergenBlock.MESSAGE_POWERGEN;
-import static com.example.someturrets.blocks.PowergenBlock.SCREEN_SOMETURRETS_POWERGEN;
-import static com.example.someturrets.setup.ModSetup.TAB_NAME;
+import static someturrets.blocks.PowergenBlock.MESSAGE_POWERGEN;
+import static someturrets.blocks.PowergenBlock.SCREEN_SOMETURRETS_POWERGEN;
+import static someturrets.setup.ModSetup.TAB_NAME;
 
 public class TutLanguageProvider extends LanguageProvider {
 

@@ -1,7 +1,7 @@
-package com.example.someturrets.datagen;
+package someturrets.datagen;
 
-import com.example.someturrets.Someturrets;
-import com.example.someturrets.setup.Registration;
+import someturrets.Someturrets;
+import someturrets.setup.Registration;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.level.block.Block;

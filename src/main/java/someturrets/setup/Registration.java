@@ -1,13 +1,12 @@
-package com.example.someturrets.setup;
+package someturrets.setup;
 
-import com.example.someturrets.blocks.PowergenBE;
-import com.example.someturrets.blocks.PowergenBlock;
-import com.example.someturrets.blocks.PowergenContainer;
+import someturrets.blocks.PowergenBE;
+import someturrets.blocks.PowergenBlock;
+import someturrets.blocks.PowergenContainer;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
@@ -18,7 +17,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-import static com.example.someturrets.Someturrets.MODID;
+import static someturrets.Someturrets.MODID;
 
 public class Registration {
 

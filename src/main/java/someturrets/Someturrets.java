@@ -1,8 +1,8 @@
-package com.example.someturrets;
+package someturrets;
 
-import com.example.someturrets.setup.ClientSetup;
-import com.example.someturrets.setup.ModSetup;
-import com.example.someturrets.setup.Registration;
+import someturrets.setup.ClientSetup;
+import someturrets.setup.ModSetup;
+import someturrets.setup.Registration;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;

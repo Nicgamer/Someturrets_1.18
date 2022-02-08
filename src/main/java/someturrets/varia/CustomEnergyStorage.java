@@ -1,4 +1,4 @@
-package com.example.someturrets.varia;
+package someturrets.varia;
 
 import net.minecraftforge.energy.EnergyStorage;
 

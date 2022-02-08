@@ -1,6 +1,6 @@
-package com.example.someturrets.setup;
+package someturrets.setup;
 
-import com.example.someturrets.client.PowergenScreen;
+import someturrets.client.PowergenScreen;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;

@@ -1,7 +1,7 @@
-package com.example.someturrets.client;
+package someturrets.client;
 
-import com.example.someturrets.Someturrets;
-import com.example.someturrets.blocks.PowergenContainer;
+import someturrets.Someturrets;
+import someturrets.blocks.PowergenContainer;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;

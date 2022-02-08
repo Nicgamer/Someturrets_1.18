@@ -1,9 +1,10 @@
-package com.example.someturrets.blocks;
+package someturrets.blocks;
 
-import com.example.someturrets.setup.Registration;
-import com.example.someturrets.varia.CustomEnergyStorage;
-import com.example.someturrets.varia.EnergyAbsorptionUnitBlacklist;
+import someturrets.setup.Registration;
+import someturrets.varia.CustomEnergyStorage;
+import someturrets.varia.EnergyAbsorptionUnitBlacklist;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -32,8 +33,16 @@ public class PowergenContainer extends AbstractContainerMenu {
         this.playerInventory = new InvWrapper(playerInventory);
 
         if (blockEntity != null) {
-            blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(h -> {
-                addSlot(new SlotItemHandler(h, 0, 64, 24));
+            blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.UP).ifPresent(h -> {
+                addSlot(new SlotItemHandler(h, 0, 10, 24));
+                addSlot(new SlotItemHandler(h, 1, 28, 24));
+                addSlot(new SlotItemHandler(h, 2, 46, 24));
+                addSlot(new SlotItemHandler(h, 3, 64, 24));
+                addSlot(new SlotItemHandler(h, 4, 82, 24));
+                addSlot(new SlotItemHandler(h, 5, 100, 24));
+            });
+            blockEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, Direction.DOWN).ifPresent(h -> {
+                addSlot(new SlotItemHandler(h, 0, 136, 24));
             });
         }
         layoutPlayerInventorySlots(10, 70);
@@ -54,7 +63,7 @@ public class PowergenContainer extends AbstractContainerMenu {
             public void set(int value) {
                 blockEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(h -> {
                     int energyStored = h.getEnergyStored() & 0xffff0000;
-                    ((CustomEnergyStorage)h).setEnergy(energyStored + (value & 0xffff));
+                    ((CustomEnergyStorage) h).setEnergy(energyStored + (value & 0xffff));
                 });
             }
         });
@@ -68,7 +77,7 @@ public class PowergenContainer extends AbstractContainerMenu {
             public void set(int value) {
                 blockEntity.getCapability(CapabilityEnergy.ENERGY).ifPresent(h -> {
                     int energyStored = h.getEnergyStored() & 0x0000ffff;
-                    ((CustomEnergyStorage)h).setEnergy(energyStored | (value << 16));
+                    ((CustomEnergyStorage) h).setEnergy(energyStored | (value << 16));
                 });
             }
         });
@@ -90,7 +99,7 @@ public class PowergenContainer extends AbstractContainerMenu {
         if (slot != null && slot.hasItem()) {
             ItemStack stack = slot.getItem();
             itemstack = stack.copy();
-            if (index == 0) {
+            if (index == 6) {
                 if (!this.moveItemStackTo(stack, 1, 37, true)) {
                     return ItemStack.EMPTY;
                 }
@@ -98,6 +107,26 @@ public class PowergenContainer extends AbstractContainerMenu {
             } else {
                 if (EnergyAbsorptionUnitBlacklist.EnergyAbsorptionUnitBlacklist(stack) > 0) {
                     if (!this.moveItemStackTo(stack, 0, 1, false)) {
+                        if (EnergyAbsorptionUnitBlacklist.EnergyAbsorptionUnitBlacklist(stack) > 0) {
+                            if (!this.moveItemStackTo(stack, 0, 2, false)) {
+                                if (EnergyAbsorptionUnitBlacklist.EnergyAbsorptionUnitBlacklist(stack) > 0) {
+                                    if (!this.moveItemStackTo(stack, 0, 3, false)) {
+                                        if (EnergyAbsorptionUnitBlacklist.EnergyAbsorptionUnitBlacklist(stack) > 0) {
+                                            if (!this.moveItemStackTo(stack, 0, 4, false)) {
+                                                if (EnergyAbsorptionUnitBlacklist.EnergyAbsorptionUnitBlacklist(stack) > 0) {
+                                                    if (!this.moveItemStackTo(stack, 0, 5, false)) {
+                                                        if (EnergyAbsorptionUnitBlacklist.EnergyAbsorptionUnitBlacklist(stack) > 0) {
+                                                            if (!this.moveItemStackTo(stack, 0, 6, false)) {
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         return ItemStack.EMPTY;
                     }
                 } else if (index < 28) {
@@ -124,9 +153,8 @@ public class PowergenContainer extends AbstractContainerMenu {
     }
 
 
-
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
-        for (int i = 0 ; i < amount ; i++) {
+        for (int i = 0; i < amount; i++) {
             addSlot(new SlotItemHandler(handler, index, x, y));
             x += dx;
             index++;
@@ -135,7 +163,7 @@ public class PowergenContainer extends AbstractContainerMenu {
     }
 
     private int addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int dx, int verAmount, int dy) {
-        for (int j = 0 ; j < verAmount ; j++) {
+        for (int j = 0; j < verAmount; j++) {
             index = addSlotRange(handler, index, x, y, horAmount, dx);
             y += dy;
         }

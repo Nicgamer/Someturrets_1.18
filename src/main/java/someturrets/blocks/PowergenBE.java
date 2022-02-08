@@ -1,13 +1,11 @@
-package com.example.someturrets.blocks;
+package someturrets.blocks;
 
-import com.example.someturrets.setup.Registration;
-import com.example.someturrets.varia.CustomEnergyStorage;
-import com.example.someturrets.varia.EnergyAbsorptionUnitBlacklist;
+import someturrets.setup.Registration;
+import someturrets.varia.CustomEnergyStorage;
+import someturrets.varia.EnergyAbsorptionUnitBlacklist;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
-import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -35,7 +33,7 @@ public class PowergenBE extends BlockEntity {
     public static final int OUTPUT_SLOTS = 1;
 
     private boolean generating = false;
-    private BlockState generatingBlock;
+    private Block generatingBlock;
     private boolean actuallyGenerating = false;
 
     private int generatingCounter = 0;
@@ -62,6 +60,15 @@ public class PowergenBE extends BlockEntity {
         inputItemHandler.invalidate();
         outputItemHandler.invalidate();
         energy.invalidate();
+    }
+
+    public void setGeneratingBlock() {
+        // Only accepts Dead Matter as an output result
+        Block generatingBlock = Registration.DEAD_MATTER.get();
+        this.generatingBlock = generatingBlock;
+        setChanged();
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+
     }
 
     public void tickServer() {
@@ -117,7 +124,10 @@ public class PowergenBE extends BlockEntity {
     @Override
     public void load(CompoundTag tag) {
         if (tag.contains("Inventory")) {
-           inputItems.deserializeNBT(tag.getCompound("Inventory"));
+            inputItems.deserializeNBT(tag.getCompound("Inventory"));
+        }
+        if (tag.contains("Inventory")) {
+            outputItems.deserializeNBT(tag.getCompound("Inventory"));
         }
         if (tag.contains("Energy")) {
             energyStorage.deserializeNBT(tag.get("Energy"));
@@ -130,7 +140,8 @@ public class PowergenBE extends BlockEntity {
 
     @Override
     public void saveAdditional(CompoundTag tag) {
-        tag.put("Inventory",inputItems.serializeNBT());
+        tag.put("Inventory", inputItems.serializeNBT());
+        tag.put("Inventory", outputItems.serializeNBT());
         tag.put("Energy", energyStorage.serializeNBT());
 
         CompoundTag infoTag = new CompoundTag();
@@ -173,20 +184,20 @@ public class PowergenBE extends BlockEntity {
         for (int i = 0; i < inputItems.getSlots(); i++) {
             ItemStack item = inputItems.getStackInSlot(i);
             if (!item.isEmpty()) {
-                energyStorage.addEnergy(POWERGEN_GENERATE);
-                // The API documentation from getStackInSlot says you are not allowed to modify the itemstacks returned
+                energyStorage.addEnergy(POWERGEN_GENERATE * 6);
+                // The API documentation from getStackInSlot says you are not allowed to modify the itemstack returned
                 // by getStackInSlot. That's why we make a copy here
                 item = item.copy();
-                item.shrink(1);
+                item.shrink(6);
                 // Put back the item with one less (can be empty)
                 inputItems.setStackInSlot(i, item);
                 generatingCounter++;
                 areWeGenerating = true;
                 setChanged();
-                if (generatingCounter == 1) {
+                if (generatingCounter >= 1) {
                     generatingCounter = 0;
                     // For each of these ores we try to insert it in the output buffer or else throw it on the ground
-                    ItemStack remaining = ItemHandlerHelper.insertItem(outputItems, new ItemStack(generatingBlock.getBlock().asItem()), false);
+                    ItemHandlerHelper.insertItem(outputItems, new ItemStack(generatingBlock.asItem()), false);
                 }
             }
         }

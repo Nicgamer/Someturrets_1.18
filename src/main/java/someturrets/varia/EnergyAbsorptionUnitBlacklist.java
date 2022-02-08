@@ -1,12 +1,7 @@
-package com.example.someturrets.varia;
+package someturrets.varia;
 
-import com.example.someturrets.setup.Registration;
+import someturrets.setup.Registration;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class EnergyAbsorptionUnitBlacklist {
 

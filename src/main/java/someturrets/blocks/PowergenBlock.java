@@ -1,4 +1,4 @@
-package com.example.someturrets.blocks;
+package someturrets.blocks;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;

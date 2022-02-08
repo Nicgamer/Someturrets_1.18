@@ -1,4 +1,4 @@
-package com.example.someturrets.datagen;
+package someturrets.datagen;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

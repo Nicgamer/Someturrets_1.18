@@ -1,4 +1,4 @@
-package com.example.someturrets.datagen;
+package someturrets.datagen;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
