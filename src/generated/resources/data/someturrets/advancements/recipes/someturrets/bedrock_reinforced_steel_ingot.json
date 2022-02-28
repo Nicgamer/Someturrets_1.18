@@ -2,22 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "someturrets:master_security_card"
+      "someturrets:bedrock_reinforced_steel_ingot"
     ]
   },
   "criteria": {
-    "has Security Card": {
+    "has BDSB": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "someturrets:security_card"
-            ]
-          },
-          {
-            "items": [
-              "someturrets:security_card_modification_piece"
+              "someturrets:bedrock_reinforced_steel_block"
             ]
           }
         ]
@@ -26,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "someturrets:master_security_card"
+        "recipe": "someturrets:bedrock_reinforced_steel_ingot"
       }
     }
   },
   "requirements": [
     [
-      "has Security Card",
+      "has BDSB",
       "has_the_recipe"
     ]
   ]

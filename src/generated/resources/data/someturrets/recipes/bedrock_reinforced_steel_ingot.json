@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "someturrets:bedrock_reinforced_steel_block"
+    }
+  ],
+  "result": {
+    "item": "someturrets:bedrock_reinforced_steel_ingot",
+    "count": 9
+  }
+}

@@ -54,6 +54,12 @@ public class PowergenBE extends BlockEntity {
         super(Registration.POWERGEN_BE.get(), pos, state);
     }
 
+    public void setGenerating(boolean generating) {
+        this.generating = generating;
+        setChanged();
+        level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), Block.UPDATE_ALL);
+    }
+
     @Override
     public void setRemoved() {
         super.setRemoved();
@@ -150,7 +156,7 @@ public class PowergenBE extends BlockEntity {
     }
 
     private ItemStackHandler createHandler() {
-        return new ItemStackHandler(1) {
+        return new ItemStackHandler(6) {
 
             @Override
             protected void onContentsChanged(int slot) {
@@ -177,27 +183,28 @@ public class PowergenBE extends BlockEntity {
 
     private boolean generateDeadMatter() {
         // The player didn't select anything to generate
-        if (generatingBlock == null) {
-            return false;
-        }
+        //   return false;
+        //}
         boolean areWeGenerating = false;
         for (int i = 0; i < inputItems.getSlots(); i++) {
             ItemStack item = inputItems.getStackInSlot(i);
             if (!item.isEmpty()) {
-                energyStorage.addEnergy(POWERGEN_GENERATE * 6);
-                // The API documentation from getStackInSlot says you are not allowed to modify the itemstack returned
-                // by getStackInSlot. That's why we make a copy here
-                item = item.copy();
-                item.shrink(6);
-                // Put back the item with one less (can be empty)
-                inputItems.setStackInSlot(i, item);
-                generatingCounter++;
-                areWeGenerating = true;
-                setChanged();
-                if (generatingCounter >= 1) {
-                    generatingCounter = 0;
-                    // For each of these ores we try to insert it in the output buffer or else throw it on the ground
-                    ItemHandlerHelper.insertItem(outputItems, new ItemStack(generatingBlock.asItem()), false);
+                if (item.getCount() >= 6) {
+                    energyStorage.addEnergy(POWERGEN_GENERATE * 6);
+                    // The API documentation from getStackInSlot says you are not allowed to modify the itemstack returned
+                    // by getStackInSlot. That's why we make a copy here
+                    item = item.copy();
+                    item.shrink(6);
+                    // Put back the item with one less (can be empty)
+                    inputItems.setStackInSlot(i, item);
+                    generatingCounter++;
+                    areWeGenerating = true;
+                    setChanged();
+                    if (generatingCounter >= 1) {
+                        generatingCounter = 0;
+                        // For each of these ores we try to insert it in the output buffer or else throw it on the ground
+                        ItemHandlerHelper.insertItem(outputItems, new ItemStack(generatingBlock.asItem()), false);
+                    }
                 }
             }
         }

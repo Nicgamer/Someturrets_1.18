@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "someturrets:item/bedrock_reinforced_steel_ingot"
+  }
+}

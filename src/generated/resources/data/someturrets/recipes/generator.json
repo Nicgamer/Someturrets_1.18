@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bbb",
+    "pqp",
+    "bbb"
+  ],
+  "key": {
+    "b": {
+      "item": "someturrets:bedrock_reinforced_steel_ingot"
+    },
+    "p": {
+      "tag": "forge:glass_panes"
+    },
+    "q": {
+      "item": "someturrets:quantum_energy_cell"
+    }
+  },
+  "result": {
+    "item": "someturrets:generator"
+  }
+}

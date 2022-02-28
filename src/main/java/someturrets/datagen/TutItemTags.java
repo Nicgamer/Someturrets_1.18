@@ -17,8 +17,7 @@ public class TutItemTags extends ItemTagsProvider {
     @Override
     protected void addTags() {
         tag(Tags.Items.INGOTS)
-                .add(Registration.DARK_STEEL_INGOT.get());
-
+                .add(Registration.BEDROCK_REINFORCED_STEEL_INGOT.get());
     }
 
     @Override

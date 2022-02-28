@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "someturrets:generator",
     "someturrets:bedrock_reinforced_steel_block"
   ]
 }

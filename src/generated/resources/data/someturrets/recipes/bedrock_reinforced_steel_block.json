@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "bbb",
+    "bbb",
+    "bbb"
+  ],
+  "key": {
+    "b": {
+      "item": "someturrets:bedrock_reinforced_steel_ingot"
+    }
+  },
+  "result": {
+    "item": "someturrets:bedrock_reinforced_steel_block"
+  }
+}

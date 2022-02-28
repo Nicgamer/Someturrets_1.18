@@ -20,10 +20,12 @@ public class TutItemModels extends ItemModelProvider {
 
         withExistingParent(Registration.POWERGEN_ITEM.get().getRegistryName().getPath(), modLoc("block/powergen/main"));
 
+        withExistingParent(Registration.SCREEN_ITEM.get().getRegistryName().getPath(), modLoc("block/screen/main"));
 
-        singleTexture(Registration.DARK_STEEL_INGOT.get().getRegistryName().getPath(),
+
+        singleTexture(Registration.BEDROCK_REINFORCED_STEEL_INGOT.get().getRegistryName().getPath(),
         mcLoc("item/generated"),
-        "layer0", modLoc("item/dark_steel_ingot"));
+        "layer0", modLoc("item/bedrock_reinforced_steel_ingot"));
         singleTexture(Registration.QUANTUM_ENERGY_CELL.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", modLoc("item/quantum_energy_cell"));

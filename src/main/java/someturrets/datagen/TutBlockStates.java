@@ -1,5 +1,6 @@
 package someturrets.datagen;
 
+import net.minecraftforge.client.model.generators.CustomLoaderBuilder;
 import someturrets.Someturrets;
 import someturrets.setup.Registration;
 import net.minecraft.core.Direction;
@@ -10,7 +11,9 @@ import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.MultiPartBlockStateBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
-
+/*
+import static someturrets.client.ScreenModelLoader.SCREEN_LOADER;
+*/
 public class TutBlockStates extends BlockStateProvider {
 
     public TutBlockStates(DataGenerator gen, ExistingFileHelper helper) {
@@ -19,6 +22,9 @@ public class TutBlockStates extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
+
+//        registerScreen();
+
         registerPowergen();
         simpleBlock(Registration.BEDROCK_REINFORCED_STEEL_BLOCK.get());
         simpleBlock(Registration.BEDROCK_STEEL_STABILIZED_NETWORK_CABLE.get());
@@ -83,4 +89,14 @@ public class TutBlockStates extends BlockStateProvider {
             bld.part().modelFile(models[i]).rotationY(270).rotationX(90).addModel().condition(BlockStateProperties.POWERED, powered);
         }
     }
+/*
+    private void registerScreen() {
+        // Using CustomLoaderBuilder we can define a json file for our model that will use our baked model
+        BlockModelBuilder screenModel = models().getBuilder(Registration.SCREEN.get().getRegistryName().getPath())
+                .parent(models().getExistingFile(mcLoc("cube")))
+                .customLoader((blockModelBuilder, helper) -> new CustomLoaderBuilder<BlockModelBuilder>(SCREEN_LOADER, blockModelBuilder, helper) { })
+                .end();
+        directionalBlock(Registration.SCREEN.get(), screenModel);
+    }
+*/
 }
